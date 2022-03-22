@@ -39,16 +39,11 @@ const CreateReference = () => {
 
   const handleChange = (event) => {
     setSite(event.target.value);
-    console.log(event.target.value)
   };
 
   const handleClick = async () => {
-    //require("../scrapeService").sleepPoorly()
-    //const responseText = ipcRenderer.invoke("console", site)
-    console.log(site)
     const responseText =  await window.electronAPI.setSite(site)
     console.log(responseText)
-    //const responseText = window.Electron.ipcRenderer.invoke("console", site)
   }
 
   return (

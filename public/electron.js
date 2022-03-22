@@ -2,9 +2,7 @@ const path = require('path');
 
 const { app, BrowserWindow, ipcMain } = require('electron');
 const isDev = require('electron-is-dev');
-const { typeOf } = require('react-is');
-
-
+const {scrapeService} = require('./scrapeService')
 
 function createWindow() {
   // Create the browser window.
@@ -43,7 +41,8 @@ app.whenReady().then(() => {
   // })
   ipcMain.on('synchronous-message', (event, arg) => {
     console.log(arg) // prints "ping" in the Node console
-    event.returnValue = 'pong'
+    event.returnValue = scrapeService(arg)
+    //event.returnValue = 'pong'
   })
   createWindow()
 }

@@ -9,5 +9,5 @@ contextBridge.exposeInMainWorld('electronAPI', {
 
 // You can also put expose this code to the renderer
 // process with the `contextBridge` API
-const result = ipcRenderer.sendSync('synchronous-message', 'ping')
-console.log(result) 
+// const result = ipcRenderer.sendSync('synchronous-message', 'ping')
+// console.log(result) 
