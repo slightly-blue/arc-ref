@@ -39,10 +39,12 @@ app.whenReady().then(() => {
   //   console.log(`Received from frontend: ${site}`)
   //   return `Backend confirms it received: ${site}`
   // })
-  ipcMain.on('synchronous-message', (event, arg) => {
-    console.log(arg) // prints "ping" in the Node console
-    event.returnValue = scrapeService(arg)
-    //event.returnValue = 'pong'
+  ipcMain.on('synchronous-message', async (event, arg) => {
+    //console.log(arg) // prints "ping" in the Node console
+    //event.returnValue = await scrapeService(arg)
+    const result = await scrapeService(arg)
+    //return result 
+    event.returnValue = result
   })
   createWindow()
 }

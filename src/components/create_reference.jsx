@@ -36,6 +36,7 @@ const CreateReference = () => {
   const [progress, setProgress] = React.useState(33);
 
   const [site, setSite] = React.useState('');
+  const [data, setData] = React.useState('');
 
   const handleChange = (event) => {
     setSite(event.target.value);
@@ -43,6 +44,7 @@ const CreateReference = () => {
 
   const handleClick = async () => {
     const responseText =  await window.electronAPI.setSite(site)
+    setData(responseText)
     console.log(responseText)
   }
 
@@ -62,6 +64,8 @@ const CreateReference = () => {
           <span>Creating reference...</span><span style={{ position: 'absolute', right: '0px' }}>scraping</span>
         </div>
       </div>
+
+      <div style={{maxWidth: '30rem'}}><pre>{JSON.stringify(data, null, 2) }</pre></div>
 
     </div>
   )
