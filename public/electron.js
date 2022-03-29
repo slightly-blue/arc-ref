@@ -7,8 +7,11 @@ const {scrapeService} = require('./scrapeService')
 function createWindow() {
   // Create the browser window.
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1000,
+    height: 700,
+    //titleBarStyle: 'hidden',
+    autoHideMenuBar: true,
+    //titleBarOverlay: true,
     webPreferences: {
       nodeIntegration: true,
       //contextIsolation: false,
