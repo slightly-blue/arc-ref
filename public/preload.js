@@ -1,10 +1,10 @@
 const { contextBridge, ipcRenderer } = require('electron')
 
+
 contextBridge.exposeInMainWorld('electronAPI', {
-    //setSite: (site) => ipcRenderer.send('console', site)
-    //setSite: (callback) => ipcRenderer.on('console', callback)
-    setSite: (site) => ipcRenderer.sendSync('synchronous-message', site)
-   
+    setSite: (site) => ipcRenderer.sendSync('synchronous-message', site),
+    getStoreValue: (val) => ipcRenderer.sendSync('getStoreValue', val),
+    setStoreValue: (val) => ipcRenderer.sendSync('getStoreValue', val)
 })
 
 // You can also put expose this code to the renderer

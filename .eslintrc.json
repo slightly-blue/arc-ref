@@ -22,6 +22,7 @@
         // "quotes": ["error", "double"],
         //"import/no-unresolved": "error",
         // Since React 17 and typescript 4.1 you can safely disable the rule
+        "no-unused-vars": "warn",
         "react/react-in-jsx-scope": "off",
         "array-element-newline": [
             "error",

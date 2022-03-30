@@ -43,7 +43,7 @@ const SideBar = () => {
         <FilterTextField label="Filter" variant="standard" size="small" />
         <AddButton variant="outlined" size="small">Add</AddButton>
       </div>
-      <div>
+      <div style={{marginTop: '1.5rem'}}>
         <ProjectItem />
         <ProjectItem />
         <ProjectItem />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import LinearProgress from '@mui/material/LinearProgress';
@@ -27,12 +27,6 @@ const CreateReference = () => {
 
 
 
-
-
-
-
-
-
   const [progress, setProgress] = React.useState(33);
 
   const [site, setSite] = React.useState('');
@@ -46,6 +40,7 @@ const CreateReference = () => {
     const responseText =  await window.electronAPI.setSite(site)
     setData(responseText)
     console.log(responseText)
+
   }
 
   return (

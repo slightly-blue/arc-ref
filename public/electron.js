@@ -2,7 +2,11 @@ const path = require('path');
 
 const { app, BrowserWindow, ipcMain } = require('electron');
 const isDev = require('electron-is-dev');
-const {scrapeService} = require('./scrapeService')
+const { scrapeService } = require('./scrapeService')
+
+const Store = require('electron-store');
+const store = new Store();
+store.set('foo', ' toodles~ 🦄');
 
 function createWindow() {
   // Create the browser window.
@@ -18,6 +22,8 @@ function createWindow() {
       preload: path.join(__dirname, 'preload.js')
     },
   });
+
+
 
   // and load the index.html of the app.
   // win.loadFile("index.html");
@@ -36,22 +42,24 @@ function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
-  // ipcMain.handle('console', (site) => {
-  //   console.log(site)
-  //   //console.log(JSON.stringify(site))
-  //   console.log(`Received from frontend: ${site}`)
-  //   return `Backend confirms it received: ${site}`
-  // })
+
   ipcMain.on('synchronous-message', async (event, arg) => {
-    //console.log(arg) // prints "ping" in the Node console
-    //event.returnValue = await scrapeService(arg)
     const result = await scrapeService(arg)
-    //return result 
     event.returnValue = result
   })
+
+  ipcMain.on('getStoreValue', async (event, key) => {
+    const result = await store.get(key);
+    event.returnValue = result
+  });
+
+  ipcMain.on('setStoreValue', async (event, key) => {
+    const result = await store.set(key);
+    event.returnValue = result
+  });
+
   createWindow()
-}
-);
+});
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
