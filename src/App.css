@@ -34,26 +34,30 @@
   left: 0;
   bottom: 0;
   overflow-y: auto;
-  
 }
+
 ::-webkit-scrollbar {
   width: 4px;
 }
+
 ::-webkit-scrollbar-track {
   visibility: hidden;
 }
+
 ::-webkit-scrollbar-thumb {
-  background: rgb(187, 187, 187); 
+  background: rgb(187, 187, 187);
   visibility: hidden;
   border-radius: 2px;
   width: 4px;
 }
+
 :hover::-webkit-scrollbar-thumb {
   width: 4px;
 }
+
 .project-list:hover::-webkit-scrollbar-thumb {
-    transition: 250ms;
-    visibility: visible;
+  transition: 250ms;
+  visibility: visible;
 }
 
 .project-item {
@@ -71,6 +75,7 @@
   bottom: 0rem;
   overflow-y: auto;
 }
+
 .main-content:hover::-webkit-scrollbar-thumb {
   visibility: visible;
 }
@@ -80,5 +85,3 @@
   flex-direction: row;
   flex-wrap: nowrap;
 }
-
-

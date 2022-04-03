@@ -1,46 +1,37 @@
-// add project
-// delete project
-// rename project
-// add citation
-// delete citation
-// modify citation 
-// add style 
-// modify style
-// remove style 
-const test_state = {
-    "active_project": {
-      index: undefined,
-      name: undefined,
-    },
-		"projects": [
-			{
-				"project": "my-first-project",
-				"references": [
-          {
-            title: undefined,
-            type: undefined,
-            authors: undefined,
-            published_date: undefined,
-            journal: undefined,
-            publisher: undefined,
-            volume_no: undefined,
-            issue_no: undefined,
-            pages_used: undefined,
-            doi: undefined,
-            database: undefined,
-            URL: undefined,
-            access_date: undefined,
-          }
-        ],
-				"style": {}
-			},
-			{
-				"project": "other project",
-        "references": [],
-				"style": {}
-			}
-		]
-}
+// const test_state = {
+//     "active_project": {
+//       index: undefined,
+//       name: undefined,
+//     },
+// 		"projects": [
+// 			{
+// 				"project": "my-first-project",
+// 				"references": [
+//           {
+//             title: undefined,
+//             type: undefined,
+//             authors: undefined,
+//             published_date: undefined,
+//             journal: undefined,
+//             publisher: undefined,
+//             volume_no: undefined,
+//             issue_no: undefined,
+//             pages_used: undefined,
+//             doi: undefined,
+//             database: undefined,
+//             URL: undefined,
+//             access_date: undefined,
+//           }
+//         ],
+// 				"style": {}
+// 			},
+// 			{
+// 				"project": "other project",
+//         "references": [],
+// 				"style": {}
+// 			}
+// 		]
+// }
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -50,7 +41,7 @@ export default (state = {}, action) => {
         //...state
       };
     case "SELECT_PROJECT": {
-      let index =  state.projects.findIndex(obj => obj.project === action.payload);
+      let index = state.projects.findIndex(obj => obj.project === action.payload);
       return {
         ...state,
         active_project: {

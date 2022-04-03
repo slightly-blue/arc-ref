@@ -1,6 +1,6 @@
 import { Button, Typography } from '@mui/material';
 import { TextField } from '@mui/material';
-import React, { useCallback } from 'react';
+import React from 'react';
 import BookOutlinedIcon from '@mui/icons-material/BookOutlined';
 import { styled } from '@mui/material/styles';
 import ActionModal from './modal';
@@ -16,8 +16,8 @@ const SideBar = () => {
   const addProjectToggle = () => setAddProjectOpen(!addProjectOpen);
 
   const selectProject = (selected) => {
-    dispatch({ 
-      type: 'SELECT_PROJECT', 
+    dispatch({
+      type: 'SELECT_PROJECT',
       payload: selected
     })
   }
@@ -25,7 +25,7 @@ const SideBar = () => {
   // eslint-disable-next-line react/prop-types
   const ProjectItem = ({ name, sourcesNum }) => {
     return (
-      <CardActionArea onClick={()=>selectProject(name)}>
+      <CardActionArea onClick={() => selectProject(name)}>
         <div className='project-item'>
           <BookOutlinedIcon fontSize="small" sx={{ margin: '0rem 1rem' }} />
           <div>
@@ -50,7 +50,7 @@ const SideBar = () => {
 
   const NewProjectComponent = () => {
     const [name, setName] = React.useState();
- 
+
 
     // const addProject = async () => {
     //   const project = { project: name, references: "", style: "" }
@@ -72,13 +72,14 @@ const SideBar = () => {
     //   // addProjectToggle()
     // }
     const addProject = () => {
-      dispatch({ 
-        type: 'ADD_PROJECT', 
-        payload: { 
-          project: name, 
-          references: "", 
-          style: "" 
-      }})
+      dispatch({
+        type: 'ADD_PROJECT',
+        payload: {
+          project: name,
+          references: "",
+          style: ""
+        }
+      })
       addProjectToggle()
     }
 

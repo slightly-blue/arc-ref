@@ -58,7 +58,6 @@ app.whenReady().then(() => {
       event.returnValue = undefined
       console.log(error)
     }
-
   });
 
   ipcMain.on('setStoreValue', async (event, key) => {
@@ -69,7 +68,6 @@ app.whenReady().then(() => {
     } catch (error) {
       console.log(error)
     }
-     
   });
 
   createWindow()
