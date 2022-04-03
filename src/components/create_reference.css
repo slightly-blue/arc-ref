@@ -1,4 +1,12 @@
 .create-reference {
-  width: 20rem;
+  /* width: 28rem; */
   margin: 0 auto;
+  margin-left: 6rem;
+  max-height: 30rem;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.create-reference:hover::-webkit-scrollbar-thumb {
+  visibility: visible;
 }

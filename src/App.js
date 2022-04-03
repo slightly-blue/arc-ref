@@ -5,12 +5,22 @@ import TopBar from './components/topBar'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Bibliography from './components/bibliography';
 import React from 'react';
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+
+import reducer from './reducer'
+const store = createStore(reducer)
 
 const handleLoad = async () => {
-  const foo = await window.electronAPI.getStoreValue('foo')
-  console.log(foo)
-  
+  const state = await window.electronAPI.getStoreValue('state')
+  console.log(state)
+  if(state) {
+    store.dispatch({type: "INIT", payload: state})
+  } else {
+    print("not initialized")
+  }
 }
+
 handleLoad()
 
 // const foo = await window.electronAPI.setStoreValue(
@@ -56,11 +66,13 @@ const theme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
+      <Provider store={store}>
         <div className="App">
           <TopBar />
           <SideBar />
           <Bibliography />
         </div>
+      </Provider>
     </ThemeProvider>
   )
 }

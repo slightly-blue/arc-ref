@@ -6,7 +6,8 @@ const { scrapeService } = require('./scrapeService')
 
 const Store = require('electron-store');
 const store = new Store();
-store.set('foo', ' toodles~ 🦄');
+
+console.log("data is stored in:", app.getPath('userData'))
 
 function createWindow() {
   // Create the browser window.
@@ -49,13 +50,26 @@ app.whenReady().then(() => {
   })
 
   ipcMain.on('getStoreValue', async (event, key) => {
-    const result = await store.get(key);
-    event.returnValue = result
+    try {
+      const result = await store.get(key); //, (err) => { if (err) { console.log(err) } }
+      console.log("get called")
+      event.returnValue = result
+    } catch (error) {
+      event.returnValue = undefined
+      console.log(error)
+    }
+
   });
 
   ipcMain.on('setStoreValue', async (event, key) => {
-    const result = await store.set(key);
-    event.returnValue = result
+    try {
+      const result = await store.set(...key);
+      console.log("set called")
+      event.returnValue = result
+    } catch (error) {
+      console.log(error)
+    }
+     
   });
 
   createWindow()

@@ -12,6 +12,7 @@
   max-width: 15.45rem !important;
   min-width: 15.45rem !important;
   height: 100vh !important;
+  max-height: 100vh !important;
   position: absolute;
   top: 0;
   z-index: -1;
@@ -26,16 +27,58 @@
   margin-top: 3rem;
 }
 
+.project-list {
+  position: absolute;
+  top: 7.5rem;
+  width: 15.45rem;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  
+}
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  visibility: hidden;
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(187, 187, 187); 
+  visibility: hidden;
+  border-radius: 2px;
+  width: 4px;
+}
+:hover::-webkit-scrollbar-thumb {
+  width: 4px;
+}
+.project-list:hover::-webkit-scrollbar-thumb {
+    transition: 250ms;
+    visibility: visible;
+}
+
 .project-item {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  margin-top: 0.8rem;
-  margin-left: 0.5rem;
+  margin: 0.3rem 0.5rem;
+  /* margin-left: 0.5rem; */
 }
 
 .main-content {
   position: absolute;
   top: 4rem;
   left: 17rem;
+  bottom: 0rem;
+  overflow-y: auto;
 }
+.main-content:hover::-webkit-scrollbar-thumb {
+  visibility: visible;
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+
