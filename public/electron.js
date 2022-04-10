@@ -2,7 +2,7 @@ const path = require('path');
 
 const { app, BrowserWindow, ipcMain } = require('electron');
 const isDev = require('electron-is-dev');
-const { scrapeService } = require('./scrapeService')
+const { scrapeService } = require('./scraping/electronScrapeService')
 
 const Store = require('electron-store');
 const store = new Store();
@@ -19,6 +19,8 @@ function createWindow() {
     //titleBarOverlay: true,
     webPreferences: {
       nodeIntegration: true,
+      //contextIsolation: false,
+      enableRemoteModule: true,
       //contextIsolation: false,
       preload: path.join(__dirname, 'preload.js')
     },

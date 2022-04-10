@@ -22,3 +22,25 @@ The program does not rely on any database but tries to figure out all the inform
 The program features rich text copy and paste to put your citations in any text editor without any extra plugins.
 
 This program is not for large scale projects where you also need to manage text passages, and want to use the system to manage your thoughts. For this use case Mendeley, RefWorks or Zotero would be a better choice.  
+
+
+### Citation process
+- enter URL or nothing 
+- choose what format
+- make the fields that are neccesary for a format obligatory
+- enter to store 
+
+### Citation style options
+- choose binding words 
+- choose capitalization 
+- choose font for entire citation
+- choose order of information 
+- choose italics, bold, normal for each 
+- set style to project
+- set style as default  
+
+### Plan
+- you currently lack understanding of the involved features in order to implement citation styles
+- first:
+  - make format choice 
+  - make harward style 

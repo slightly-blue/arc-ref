@@ -37,7 +37,7 @@ const TopBar = () => {
           <TopBarButton className="top-bar-button" startIcon={<SettingsIcon />} onClick={styleToggle} >Citation style</TopBarButton>
           <TopBarButton className="top-bar-button" startIcon={<AddIcon />} onClick={referenceToggle}> New Reference</TopBarButton>
         </ButtonGroup>
-        <ActionModal handleToggle={referenceToggle} open={referenceOpen}> <CreateReference/> </ActionModal>
+        <ActionModal handleToggle={referenceToggle} open={referenceOpen}> <CreateReference closeModal={()=> setReferenceOpen(false)}/> </ActionModal>
         <ActionModal handleToggle={styleToggle} open={styleOpen}>style~ </ActionModal>
     </div>
   )

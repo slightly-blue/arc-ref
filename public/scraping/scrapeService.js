@@ -4,6 +4,7 @@
 const scrapeService = async (test_url) => {
   const axios = require('axios');
   const cheerio = require('cheerio');
+  
   // time validation
   const ISO_8601 = /^\d{4}(-\d\d(-\d\d(T\d\d:\d\d(:\d\d)?(\.\d+)?(([+-]\d\d:\d\d)|Z)?)?)?)?$/i
 
@@ -12,20 +13,40 @@ const scrapeService = async (test_url) => {
     type: undefined,
     authors: undefined,
     published_date: undefined,
+    year_of_publishing: undefined,
     journal: undefined,
     publisher: undefined,
+
     volume_no: undefined,
     issue_no: undefined,
     pages_used: undefined,
+
     doi: undefined,
     database: undefined,
     URL: test_url,
     access_date: undefined,
-    html: undefined,
+
+    series_season: undefined,
+    series_episode: undefined,
   }
 
+  const form = [
+    "Book",
+    "Edited Book",
+    "E-Book",
+    "Journal Article",
+    "Newspaper Article",
+    "Photograph",
+    "Film",
+    "TV Programme",
+    "Music",
+    "Website"
+  ]
+// scraping do not work on sites that uses javascript to load it's content 
+// e.g. sites protected by cloudflare 
 
-  return axios.get(test_url)
+// pretend to be a Samsung Galaxy S9
+  return axios.get(test_url, { headers: { 'User-Agent': 'Mozilla/5.0 (Linux; Android 8.0.0; SM-G960F Build/R16NW) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.84 Mobile Safari/537.36' }  } )
     .then(res => {
       //console.log(res.data)
       //document_info.html = res
@@ -121,6 +142,7 @@ const scrapeService = async (test_url) => {
           'citation_authors',
           'dcterms.creator',
           'dc.creator',
+          'dc.Creator',
           'eprints.creators_name',
           'bepress_citation_author'
         ]) ??
@@ -166,10 +188,11 @@ const scrapeService = async (test_url) => {
         metaPropertyCheck(['article:published_time']) ??
         ld_json()?.datePublished ??
 
-        $('meta').filter(function () {  // match any meta name tag with publish in it with a ISO_8601 date string 
+        $('meta').filter(function () {  // match any meta name tag with "publish" in it matching a ISO_8601 date string 
           return (/publish/i).test($(this).attr('name')) && ISO_8601.test($(this).attr('content'))
         }).attr('content')
 
+      document_info.year_of_publishing = new Date(document_info.published_date).getUTCFullYear()
       //document_info.published_date = itemPropCheck(['datePublished'])
 
       document_info.type_of_work =
@@ -227,23 +250,26 @@ const scrapeService = async (test_url) => {
         ])
 
       const today = new Date();
-      document_info.access_date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+      document_info.access_date = (today.getMonth() + 1)  + '.' + today.getDate() + '.' + today.getFullYear();
+
+      $("head meta").each(function () {
+        console.log($(this).clone().wrap('<div>').parent().html())
+      });
 
       //console.log(document_info) 
 
 
-      return document_info
+      return {document_info: document_info, data: undefined}
 
     }).catch(err => {
       console.error(err)
-      return err
+      return {document_info: document_info, data: undefined, error: err}
     })
 
 
   // inspiration: http://div.div1.com.au/div-thoughts/div-commentaries/66-div-commentary-metadata
   // 1. Check link type
   // 2. Check whois database 
-
 
   // Strategies:
   // - file endings
@@ -254,6 +280,11 @@ const scrapeService = async (test_url) => {
   // - 
 
   // use axios 
+
+
+  // scraping decision tree:
+  // - guess format
+  // - depending on format try looking for additional info  
 
 
 }
