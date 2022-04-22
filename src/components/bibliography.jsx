@@ -1,11 +1,19 @@
 import { Button, Typography } from '@mui/material';
-import React from 'react';
+import React, {useEffect} from 'react';
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
 import { useSelector } from 'react-redux';
+import {TYPES_OF_WORK} from './types_of_work.js';
 
 
 const Bibliography = () => {
   const state = useSelector((state) => state)
+  useEffect(() => {
+   // write to disk
+   window.electronAPI.setStoreValue(['state', state])
+  }, [state]);
+
+
+
   const citations = state.projects ? state.projects[state.active_project.index].citations : undefined
 
  
@@ -83,23 +91,28 @@ const Bibliography = () => {
 
 
     // Add icon depending on format 
-    const author_surname_and_initials = citation.authors
-    const eds = "(eds.)"
-    const year_of_publishing = citation.year_of_publishing
-    const title = citation.title
-    const edition = ""
-    const ebook_format_and_reader = ""
-    const place_of_publication_and_publisher = ""
-    const numbers = "" // page numbers , volumes, issue etc 
-    const available_at = "Available at: "
-    const url = <a href={citation.URL}>{citation.URL}</a>
+    // const author_surname_and_initials = citation.authors
+    // const eds = "(eds.)"
+    // const year_of_publishing = citation.year_of_publishing
+    // const title = citation.title
+    // const edition = ""
+    // const ebook_format_and_reader = ""
+    // const place_of_publication_and_publisher = ""
+    // const numbers = "" // page numbers , volumes, issue etc 
+    // const available_at = "Available at: "
+    // const url = <a href={citation.URL}>{citation.URL}</a>
 
-    return (
-      <p style={{ marginLeft: '1cm', textIndent: '-1cm', fontFamily: '"Times New Roman", Times, serif' }}>
-        {author_surname_and_initials}. {year_of_publishing}. <i>{title}</i> {edition} {place_of_publication_and_publisher}, {numbers}
-        [online] {citation.publisher}. Available at: <a href={citation.URL}>{citation.URL}</a> [Accessed {citation.access_date}].
-      </p>
-    )
+    const css = { marginLeft: '1cm', textIndent: '-1cm', fontFamily: '"Times New Roman", Times, serif' }
+    
+    return TYPES_OF_WORK[citation.type_of_work].formatting(citation, css)
+  
+
+    // return (
+    //   <p style={{ marginLeft: '1cm', textIndent: '-1cm', fontFamily: '"Times New Roman", Times, serif' }}>
+    //     {author_surname_and_initials}. {year_of_publishing}. <i>{title}</i> {edition} {place_of_publication_and_publisher}, {numbers}
+    //     [online] {citation.publisher}. Available at: <a href={citation.URL}>{citation.URL}</a> [Accessed {citation.access_date}].
+    //   </p>
+    // )
   }
   return (
     <div className='main-content'>
@@ -109,7 +122,7 @@ const Bibliography = () => {
           {citations && <div style={{ maxWidth: '30rem', overflow: 'hidden' }}><pre>{JSON.stringify(citations, null, 2)}</pre></div>}
           {citations &&
             citations.map((item, i) => (
-              <CitationComponent key={i} citation={item} />
+              <CitationComponent key={i} citation={item} style={{ marginLeft: '1cm', textIndent: '-1cm', fontFamily: '"Times New Roman", Times, serif' }}/>
             ))
           }
           {/* these work in microsoft word

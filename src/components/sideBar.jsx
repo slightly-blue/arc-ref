@@ -76,7 +76,7 @@ const SideBar = () => {
         type: 'ADD_PROJECT',
         payload: {
           project: name,
-          references: "",
+          citations: [],
           style: ""
         }
       })

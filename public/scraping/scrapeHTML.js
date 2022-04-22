@@ -1,3 +1,5 @@
+
+
 const cheerio = require('cheerio');
 const { CITATION_VARIABLES } = require('../../src/components/citation_variables')
 
@@ -12,6 +14,7 @@ const scrapeHTML = (html, url) => {
   const document_info = CITATION_VARIABLES
   document_info.url = url
 
+  // TODO: make this function non case sensitive because every single fucking webpage uses different capitalization 
   const metaNameCheck = (names) => {
     // Checks trough meta names for first valid name(s) and returns content
     for (let i = 0; i < names.length; i++) {
@@ -81,7 +84,7 @@ const scrapeHTML = (html, url) => {
 
   const metaNameRegexCheck = (regex) => {
     const tags =
-      $('meta').filter(function () {  // match any meta name tag with publish in it with a ISO_8601 date string 
+      $('meta').filter(function () { 
         return (regex).test($(this).attr('name'))
       })
     if (tags.length > 1) { // multiple has not been verified to work
@@ -96,6 +99,7 @@ const scrapeHTML = (html, url) => {
   }
 
   // get as much info as possible from meta tags 
+  // inspiration: http://div.div1.com.au/div-thoughts/div-commentaries/66-div-commentary-metadata
   document_info.authors =
     metaNameCheck([
       'citation_author',
@@ -125,6 +129,8 @@ const scrapeHTML = (html, url) => {
       'citation_title',
       'dc.title',
       'dc.Title',
+      'DC.title',
+      'DC.Title',
       'dcterms.title',
       'eprints.title',
       'bepress_citation_title',
@@ -140,6 +146,7 @@ const scrapeHTML = (html, url) => {
       'dc.date',
       'dcterms.date',
       'dc.Date',
+      'DC.date',
       'dcterms.Date',
       'dcterms.created',
       'eprints.date',

@@ -8,6 +8,7 @@ import { FormHelperText, MenuItem, Select } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import {TYPES_OF_WORK} from './types_of_work'
+import { LocalConvenienceStoreOutlined } from '@mui/icons-material';
 
 
 
@@ -41,6 +42,13 @@ const CreateReference = ({ closeModal }) => {
       }
     });
   }, []);
+
+  useEffect(() => {
+    setData({
+      ...data,
+      type_of_work: format
+    })
+  }, [format]);
 
   const handleClick = async () => {
     //const responseText = await 
@@ -79,6 +87,7 @@ const CreateReference = ({ closeModal }) => {
     return !(TYPES_OF_WORK[format]?.shown.includes(key)) ?? false
   }
 
+  // TODO: change to type of work
   const formats = [
     "Book",
     "Edited Book",
@@ -114,14 +123,12 @@ const CreateReference = ({ closeModal }) => {
             label="Type of work"
             onChange={(e) => setFormat(e.target.value)}
           >
-            {formats.map((item, i) => (
+            {Object.keys(TYPES_OF_WORK).map((item, i) => (
               <MenuItem key={i} value={item}>{item}</MenuItem>
             ))}
           </Select>
           <FormHelperText>The fields below, not required by the selected format, are disabled</FormHelperText>
         </FormControl>
-
-
       }
 
       {data && //data.format !== undefined &&

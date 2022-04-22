@@ -34,6 +34,7 @@
 // }
 
 export default (state = {}, action) => {
+  console.log("Redux State: ", state)
   switch (action.type) {
     case "INIT":
       return {

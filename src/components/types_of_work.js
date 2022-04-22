@@ -63,13 +63,17 @@ const TYPES_OF_WORK = {
       "pages_used",
       "url"
     ],
-    formatting: (props) => { 
+    formatting: (citation, css) => { 
       // Author surname(s), initial(s). (Year) ‘Title of article’, Title of journal, volume(issue/season) 
       // [online]. Available at: URL or DOI (Accessed: day month year)
+
+      // TODO: Handle cases for missing data 
+      // OBS: formatting of individual items should be done on the backend so that users can make adjustments on the frontend
+
       return (
-      <p>
-        {props.author_surname_and_initials}. {props.year_of_publishing}. <i>{props.title}</i> {props.journal ?? props.publisher} {props.volume_no}{props.volume_no && "("}{props.issue_no}{props.season_no && "/"}{props.season_no}{props.volume_no && "),"} 
-        [online] {props.publisher}. Available from: <a href={props.URL}>{props.URL}</a> Accessed {props.access_date}].
+      <p style={css}>
+        {citation.author_surname_and_initials}. {citation.year_of_publishing}. <i>{citation.title}</i> {citation.journal ?? citation.publisher} {citation.volume_no}{citation.volume_no && "("}{citation.issue_no}{citation.season_no && "/"}{citation.season_no}{citation.volume_no && "),"} 
+        [online] {citation.publisher}. Available from: <a href={citation.url}>{citation.url}</a> Accessed {citation.access_date}].
       </p>
     )},
   },
