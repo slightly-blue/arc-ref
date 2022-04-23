@@ -1,5 +1,9 @@
 
-
+/** 
+ * 
+ * THIS FILE IS DEPRECATED 
+ * 
+ * */
 
 const scrapeService = async (test_url) => {
   const axios = require('axios');
@@ -45,6 +49,12 @@ const scrapeService = async (test_url) => {
 // scraping do not work on sites that uses javascript to load it's content 
 // e.g. sites protected by cloudflare 
 
+/** 
+ * 
+ * THIS FILE IS DEPRECATED 
+ * 
+ * */
+
 // pretend to be a Samsung Galaxy S9
   return axios.get(test_url, { headers: { 'User-Agent': 'Mozilla/5.0 (Linux; Android 8.0.0; SM-G960F Build/R16NW) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.84 Mobile Safari/537.36' }  } )
     .then(res => {
@@ -55,15 +65,15 @@ const scrapeService = async (test_url) => {
       const metaNameCheck = (names) => {
         // Checks trough meta names for first valid name(s) and returns content
         for (let i = 0; i < names.length; i++) {
-          if ($('meta[name=' + names[i] + ']').length > 1) {
+          if ($("meta[name=*'" + names[i] + "' i]").length > 1) { // case insensitivity flag "i" added 
             let arr = []
-            $('meta[name=' + names[i] + ']').each((element) => {
+            $("meta[name=*'" + names[i] + "' i]").each((element) => {
               arr.push($(element).attr('content'))
             });
             return arr
 
           } else {
-            let content = $('meta[name=' + names[i] + ']').attr('content')
+            let content = $("meta[name=*'" + names[i] + "' i]").attr('content')
             if (content) {
               return content
             }
@@ -71,6 +81,7 @@ const scrapeService = async (test_url) => {
         }
         return undefined
       }
+
       const metaPropertyCheck = (names) => {
         // Checks trough meta names for first valid name(s) and returns content
         for (let i = 0; i < names.length; i++) {
@@ -90,6 +101,11 @@ const scrapeService = async (test_url) => {
         }
         return undefined
       }
+/** 
+ * 
+ * THIS FILE IS DEPRECATED 
+ * 
+ * */
       const itemPropCheck = (names) => {
         for (let i = 0; i < names.length; i++) {
           if ($('[itemprop="' + names[i] + '"]').length > 1) {
@@ -108,6 +124,12 @@ const scrapeService = async (test_url) => {
         }
         return undefined
       }
+
+      /** 
+ * 
+ * THIS FILE IS DEPRECATED 
+ * 
+ * */
 
       // Get info from application/ld+json 
       // docs: https://json-ld.org/
@@ -171,6 +193,11 @@ const scrapeService = async (test_url) => {
         ]) ??
         itemPropCheck(['headline']) ??
         $('title').text()
+/** 
+ * 
+ * THIS FILE IS DEPRECATED 
+ * 
+ * */
 
       document_info.published_date =
         metaNameCheck([
@@ -255,6 +282,11 @@ const scrapeService = async (test_url) => {
       $("head meta").each(function () {
         console.log($(this).clone().wrap('<div>').parent().html())
       });
+/** 
+ * 
+ * THIS FILE IS DEPRECATED 
+ * 
+ * */
 
       //console.log(document_info) 
 
@@ -285,7 +317,11 @@ const scrapeService = async (test_url) => {
   // scraping decision tree:
   // - guess format
   // - depending on format try looking for additional info  
-
+/** 
+ * 
+ * THIS FILE IS DEPRECATED 
+ * 
+ * */
 
 }
 module.exports = { scrapeService }

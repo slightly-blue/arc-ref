@@ -8,7 +8,6 @@ import { FormHelperText, MenuItem, Select } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import {TYPES_OF_WORK} from './types_of_work'
-import { LocalConvenienceStoreOutlined } from '@mui/icons-material';
 
 
 
@@ -27,14 +26,11 @@ const CreateReference = ({ closeModal }) => {
   };
 
   // Load data from backend on scrape 
-  // ipcRenderer.on('scrape-result', (event, message) => {
-  //   console.log(message) // Prints 'whoooooooh!'
-  // })
   useEffect(() => {
     console.log("setting event listener")
     electronAPI.receive('scrape-result', (data) => {
       //handle on download-progress event
-      console.log(data)
+      //console.log(data)
       setScrapeStatus(data)
       if (data && data.document_info) {
         setData(data.document_info)
@@ -44,24 +40,16 @@ const CreateReference = ({ closeModal }) => {
   }, []);
 
   useEffect(() => {
-    setData({
-      ...data,
-      type_of_work: format
-    })
+    if(data){
+      setData({
+        ...data,
+        type_of_work: format
+      })
+    }
   }, [format]);
 
-  const handleClick = async () => {
-    //const responseText = await 
+  const handleCreateReferenceClick = async () => {
     window.electronAPI.setSite(site)
-    // console.log(responseText)
-    // // TODO: preprocess data
-    // // - turn author list into 
-    // // - format validate dates / year 
-    // // 
-    // setData(responseText.document_info)
-    // setFormat(responseText.data)
-    // console.log(responseText)
-
   }
 
   const handleModification = (key, newValue) => {
@@ -87,22 +75,6 @@ const CreateReference = ({ closeModal }) => {
     return !(TYPES_OF_WORK[format]?.shown.includes(key)) ?? false
   }
 
-  // TODO: change to type of work
-  const formats = [
-    "Book",
-    "Edited Book",
-    "E-Book",
-    "Journal Article",
-    "Newspaper Article",
-    "Photograph",
-    "Film",
-    "TV Programme",
-    "Music", // song or album?
-    "Website",
-    "Tweet",
-    "Oral Source"
-  ]
-
 
   return (
     <div className='create-reference'>
@@ -111,7 +83,7 @@ const CreateReference = ({ closeModal }) => {
       </div>
 
       <div>
-        <Button onClick={handleClick} sx={{ marginLeft: '1rem', marginTop: '0.5rem', marginBottom: '2rem', padding: '1px 0.5rem', lineHeight: '1rem', fontSize: '0.8rem' }} variant="outlined">create reference</Button>
+        <Button onClick={handleCreateReferenceClick} sx={{ marginLeft: '1rem', marginTop: '0.5rem', marginBottom: '2rem', padding: '1px 0.5rem', lineHeight: '1rem', fontSize: '0.8rem' }} variant="outlined">create reference</Button>
       </div>
 
       {data &&
