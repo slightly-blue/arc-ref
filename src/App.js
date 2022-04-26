@@ -9,6 +9,7 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 
 import reducer from './reducer'
+import ContextMenu from './components/contextmenu';
 const store = createStore(reducer)
 
 const handleLoad = async () => {
@@ -71,6 +72,7 @@ function App() {
           <TopBar />
           <SideBar />
           <Bibliography />
+          <ContextMenu />
         </div>
       </Provider>
     </ThemeProvider>

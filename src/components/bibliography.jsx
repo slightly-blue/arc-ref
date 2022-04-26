@@ -48,21 +48,21 @@ const Bibliography = () => {
     copyRichText(copyText.outerHTML)
   };
 
-  const CitationComponent = ({ citation }) => {
+  const CitationComponent = ({ citation, index }) => {
 
-    const format = [
-      "Book",
-      "Edited Book",
-      "E-Book",
-      "Journal Article",
-      "Newspaper Article",
-      "Photograph",
-      "Film",
-      "TV Programme",
-      "Music", // song or album?
-      "Website",
-      "Tweet"
-    ]
+    // const format = [
+    //   "Book",
+    //   "Edited Book",
+    //   "E-Book",
+    //   "Journal Article",
+    //   "Newspaper Article",
+    //   "Photograph",
+    //   "Film",
+    //   "TV Programme",
+    //   "Music", // song or album?
+    //   "Website",
+    //   "Tweet"
+    // ]
 
     // https://www.mendeley.com/guides/harvard-citation-guide/
     // https://www.mendeley.com/guides/ultimate-citation-cheat-sheet/
@@ -103,8 +103,9 @@ const Bibliography = () => {
     // const url = <a href={citation.URL}>{citation.URL}</a>
 
     const css = { marginLeft: '1cm', textIndent: '-1cm', fontFamily: '"Times New Roman", Times, serif' }
+    const props = {style: css, id: "citation-" + index }
     
-    return TYPES_OF_WORK[citation.type_of_work].formatting(citation, css)
+    return TYPES_OF_WORK[citation.type_of_work].formatting(citation, props)
   
 
     // return (
@@ -122,7 +123,7 @@ const Bibliography = () => {
           {citations && <div style={{ maxWidth: '30rem', overflow: 'hidden' }}><pre>{JSON.stringify(citations, null, 2)}</pre></div>}
           {citations &&
             citations.map((item, i) => (
-              <CitationComponent key={i} citation={item} style={{ marginLeft: '1cm', textIndent: '-1cm', fontFamily: '"Times New Roman", Times, serif' }}/>
+              <CitationComponent key={i} index={i} citation={item} style={{ marginLeft: '1cm', textIndent: '-1cm', fontFamily: '"Times New Roman", Times, serif' }}/>
             ))
           }
           {/* these work in microsoft word
