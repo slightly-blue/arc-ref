@@ -65,7 +65,6 @@ app.whenReady().then(() => {
   ipcMain.on('setStoreValue', async (event, key) => {
     try {
       const result = await store.set(key[0], key[1]);
-      console.log("set called")
       event.returnValue = result
     } catch (error) {
       console.log(error)

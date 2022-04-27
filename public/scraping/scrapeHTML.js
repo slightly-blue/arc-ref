@@ -23,20 +23,25 @@ const scrapeHTML = (html, url) => {
   const document_info = CITATION_VARIABLES
   document_info.url = url
 
+  // TODO: and a clause to skip if content if NaN or "undefined" or null
   const metaNameCheck = (names) => {
     // takes an array of names and looks trough meta tags with that name 
     // returns a string or array of strings for the first matched item in the input array 
     // function is not case sensitive 
     for (let i = 0; i < names.length; i++) {
-      if ($("meta[name*='" + names[i] + "' i]").length > 1) {
+      if ($("meta[name='" + names[i] + "' i]").length > 1) {
         let arr = []
-        $("meta[name*='" + names[i] + "' i]").each((element) => {
-          arr.push($(element).attr('content'))
+        $("meta[name='" + names[i] + "' i]").each(function () {
+          let content = $( this ).attr('content')
+          if(content){
+            arr.push(content)
+          }
         });
-        return arr
-
+        if(arr.length !== 0){
+          return arr
+        }
       } else {
-        let content = $("meta[name*='" + names[i] + "' i]").attr('content')
+        let content = $("meta[name='" + names[i] + "' i]").attr('content')
         if (content) {
           return content
         }
@@ -53,10 +58,14 @@ const scrapeHTML = (html, url) => {
       if ($("meta[property*='" + names[i] + "' i]").length > 1) {
         let arr = []
         $("meta[property*='" + names[i] + "' i]").each((element) => {
-          arr.push($(element).attr('content'))
+          let content = $(element).attr('content')
+          if(content){
+            arr.push(content)
+          }
         });
-        return arr
-
+        if(arr.length !== 0){
+          return arr
+        }
       } else {
         let content = $("meta[property=*'" + names[i] + "' i]").attr('content')
         if (content) {
@@ -246,10 +255,10 @@ const scrapeHTML = (html, url) => {
   const today = new Date();
   document_info.access_date = (today.getMonth() + 1) + '.' + today.getDate() + '.' + today.getFullYear();
 
-  $("head meta").each(function () {
-    // print in blue
-    console.log('\x1b[34m%s\x1b[0m', $(this).clone().wrap('<div>').parent().html())
-  });
+  // $("head meta").each(function () {
+  //   // print in blue
+  //   console.log('\x1b[34m%s\x1b[0m', $(this).clone().wrap('<div>').parent().html())
+  // });
 
   //console.log(document_info) 
 

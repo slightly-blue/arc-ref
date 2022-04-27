@@ -19,7 +19,7 @@ const scrapeService = async (test_url) => {
   })
   win.loadURL(test_url)
 
-  console.log("electronScrapeService called")
+  console.log("electronScrapeService running...")
 
  
   // 1. Check link type
