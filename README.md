@@ -1,4 +1,5 @@
 # Arc Ref
+`NOTE: this project is still under development`
 
 A small reference and citation software built with electron, bootstrapped with create-react-app and material UI. With the goal of providing an intuitive simple user interface with only the features you absolutely need.
 
