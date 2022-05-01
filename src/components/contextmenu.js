@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
 import Paper from '@mui/material/Paper';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
@@ -10,6 +11,7 @@ import ActionModal from './modal';
 import EditCitationModal from './editCitation';
 
 const ContextMenu = () => {
+  const dispatch = useDispatch()
   const [show, setShow] = useState(false);
   const [listenerExist, setListenerExist] = useState(false);
   const [position, setPosition] = useState(false);
@@ -49,7 +51,10 @@ const ContextMenu = () => {
 
   // TODO: Fix deletion of citations 
   const handleDelete = () => {
-    console.log("delete not yet implemented")
+    dispatch({
+      type: 'DELETE_CITATION',
+      payload: selected,
+    })
   }
 
   const cssStyle = {

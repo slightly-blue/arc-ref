@@ -44,8 +44,11 @@ const EditCitationModal = ({ closeModal, referenceId }) => {
   // TODO: Modify instead of adding
   const dispatchReference = () => {
     dispatch({
-      type: 'ADD_CITATION',
-      payload: data
+      type: 'MODIFY_CITATION',
+      payload: {
+        data: data,
+        index: referenceId,
+      }
     })
     closeModal();
   }

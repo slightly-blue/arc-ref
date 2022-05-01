@@ -82,14 +82,40 @@ export default (state = {}, action) => {
         )
       };
     }
-    case "DELETE_CITATION":
+    case "DELETE_CITATION":{
+      let citations = state.projects[state.active_project.index].citations
+      citations.splice(action.payload, 1);
       return {
-        ...state
+        ...state,
+        projects: state.projects.map(
+          (project, i) => i === state.active_project.index ? {
+            ...project, 
+            citations: [
+              ...(citations)
+            ]
+          }: project
+        )
       };
-    case "MODIFY_CITATION":
+    }
+    case "MODIFY_CITATION": {
+      // payload: {
+      //   data: data,
+      //   index: referenceId,
+      // }
+      const citations = state.projects[state.active_project.index].citations
+      citations[action.payload.index] = action.payload.data
       return {
-        ...state
+        ...state,
+        projects: state.projects.map(
+          (project, i) => i === state.active_project.index ? {
+            ...project, 
+            citations: [
+              ...(citations)
+            ]
+          }: project
+        )
       };
+    }
     case "ADD_STYLE":
       return {
         ...state
